@@ -8,6 +8,8 @@
     "node_modules"
   ],
   "dependencies": {
+    "@angular/cli": "6.1.2",
+    "@angular/compiler-cli": "6.1.0",
     "@angular/common": "6.1.0",
     "@angular/compiler": "6.1.0",
     "@angular/core": "6.1.0",
@@ -21,6 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "3.0.0",
     "bootstrap": "4.1.3",
     "core-js": "2.5.7",
+    "heroku": "^7.16.0",
     "moment": "2.22.2",
     "ng-jhipster": "0.5.4",
     "ngx-cookie": "2.0.1",
@@ -31,6 +34,7 @@
     "rxjs-compat": "6.1.0",
     "swagger-ui": "2.2.10",
     "tslib": "1.9.3",
+    "typescript": "2.7.2",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
@@ -91,7 +95,9 @@
     "write-file-webpack-plugin": "4.2.0"
   },
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=8.9.0",  
+    "npm": "6.4.1"
+
   },
   "lint-staged": {
     "src/**/*.{ts,css,scss}": [
@@ -120,7 +126,8 @@
     "webpack:prod": "npm run cleanup && npm run webpack:prod:main && npm run clean-www",
     "webpack:test": "npm run test",
     "webpack-dev-server": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
+    "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js",
+    "postinstall": "ng build --aot -prod"
   },
   "jestSonar": {
     "reportPath": "target/test-results/jest",
