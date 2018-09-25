@@ -1,4 +1,4 @@
-# seatallocation
+# Seatallocation
 This application was generated using JHipster(Anuglar/Springboot) and it will be used for seat allotment by the administrator as well as the team manager.The associate can check his seat allotment status from the web application.
 
 -Security roles have been enabled for associate,manager and administrator.
