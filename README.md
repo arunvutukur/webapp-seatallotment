@@ -1,5 +1,9 @@
 # seatallocation
-This application was generated using JHipster 5.3.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.3.1](https://www.jhipster.tech/documentation-archive/v5.3.1).
+This application was generated using JHipster(Anuglar/Springboot) and it will be used for seat allotment by the administrator as well as the team manager.The associate can check his seat allotment status from the web application.
+
+-Security roles have been enabled for associate,manager and administrator.
+-JWT Authentication
+-Mongo db with updated document(BSON Files)
 
 ## Development
 
@@ -168,14 +172,11 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [Code quality page]: https://www.jhipster.tech/documentation-archive/v5.3.1/code-quality/
 [Setting up Continuous Integration]: https://www.jhipster.tech/documentation-archive/v5.3.1/setting-up-ci/
 
-
 [Node.js]: https://nodejs.org/
 [Yarn]: https://yarnpkg.org/
 [Webpack]: https://webpack.github.io/
 [Angular CLI]: https://cli.angular.io/
-[BrowserSync]: http://www.browsersync.io/
-[Jest]: https://facebook.github.io/jest/
+BDD:-
 [Jasmine]: http://jasmine.github.io/2.0/introduction.html
 [Protractor]: https://angular.github.io/protractor/
-[Leaflet]: http://leafletjs.com/
-[DefinitelyTyped]: http://definitelytyped.org/
+Karma.js
