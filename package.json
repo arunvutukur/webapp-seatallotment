@@ -94,7 +94,7 @@
     "write-file-webpack-plugin": "4.2.0"
   },
   "engines": {
-    "node": "10.10.0",
+    "node": ">=10.10.0",
     "npm": "6.4.1"
   },
   "lint-staged": {
@@ -113,7 +113,7 @@
     "clean-www": "rimraf target//www/app/{src,target/}",
     "start": "npm run webpack:dev",
     "serve": "npm run start",
-    "build": "npm run webpack:prod",
+    "build": "webpack -p",
     "test": "npm run lint && jest --coverage --logHeapUsage -w=2 --config src/test/javascript/jest.conf.js",
     "test:watch": "npm test -- --watch --clearCache",
     "webpack:dev": "npm run webpack-dev-server -- --config webpack/webpack.dev.js --inline --hot --port=9060 --watch-content-base --env.stats=minimal",
