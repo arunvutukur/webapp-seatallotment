@@ -33,7 +33,10 @@ jobs:
 
       - run:
             name: Install local dependencies
-            command:npm install      
+            command:npm install
+                
+      - run:
+            name: run local maven
             command mvn dependency:go-offline
 
       - save_cache:
