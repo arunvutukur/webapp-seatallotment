@@ -8,6 +8,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
+      - image: circleci/node:10.10.0-browsers
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -30,11 +31,15 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: mvn dependency:go-offline
+      - run:
+            name: Install local dependencies
+            command:npm install      
+            command mvn dependency:go-offline
 
       - save_cache:
           paths:
             - ~/.m2
+            - node_modules
           key: v1-dependencies-{{ checksum "pom.xml" }}
         
       # run tests!
