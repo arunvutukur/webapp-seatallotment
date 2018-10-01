@@ -42,21 +42,22 @@ jobs:
           
       - run:      
             name: run local maven
-            command mvn dependency:go-offline
+            command mvn dependency:mvn clean install
 
       - save_cache:        
           #key: v1-dependencies-{{ checksum "package.json" }}
           #paths:
                #- node_modules  
        
+          key: v1-dependencies-{{ checksum "pom.xml" }}
           paths:
             - ~/.m2            
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+          #key: v1-dependencies-{{ checksum "pom.xml" }}
         
       # run tests!
       #- run: mvn integration-test
-      -run:
-            name:install yarn
-            command:sudo npm install -g yarn
+      #-run:
+            #name:install yarn
+            #command:sudo npm install -g yarn
             
             
