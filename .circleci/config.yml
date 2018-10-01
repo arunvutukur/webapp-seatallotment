@@ -23,21 +23,34 @@ jobs:
     
     steps:
       - checkout
-
+      #Log the current branch
+      
+      -run:
+            name:show current branch
+            command:echo ${CIRCLE_BRANCH}
+       
       # Download and cache dependencies
       - restore_cache:
           keys:
+          - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-{{ checksum "pom.xml" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run:
             name: Install local dependencies
-            command: npm install
+            command: npm install      
+          
+      - run:      
             name: run local maven
             command mvn dependency:go-offline
 
       - save_cache:
+        
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+               - node_modules  
+       
           paths:
             - ~/.m2            
           key: v1-dependencies-{{ checksum "pom.xml" }}
