@@ -40,9 +40,9 @@ jobs:
             #name: Install local dependencies
             #command: npm install      
           
-      - run:      
-            name: run local maven
-            command mvn dependency:./mvnw clean install
+      #- run:      
+            #name: run local maven
+            #command mvn dependency:./mvnw clean install
 
      # - save_cache:        
           #key: v1-dependencies-{{ checksum "package.json" }}
