@@ -24,9 +24,9 @@ jobs:
     steps:
       - checkout
       #Log the current branch
-      - run:
-            name:show current branch
-            command:echo ${CIRCLE_BRANCH}
+     # - run:
+            #name:show current branch
+            #command:echo ${CIRCLE_BRANCH}
        
       # Download and cache dependencies
       - restore_cache:
@@ -42,16 +42,16 @@ jobs:
           
       - run:      
             name: run local maven
-            command mvn dependency:mvn clean install
+            command mvn dependency:./mvnw clean install
 
       - save_cache:        
           #key: v1-dependencies-{{ checksum "package.json" }}
           #paths:
                #- node_modules  
        
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-          paths:
-            - ~/.m2            
+         # key: v1-dependencies-{{ checksum "pom.xml" }}
+         #paths:
+         #   - ~/.m2            
           #key: v1-dependencies-{{ checksum "pom.xml" }}
         
       # run tests!
