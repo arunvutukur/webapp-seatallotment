@@ -1,0 +1,28 @@
+{
+    "name": "Access",
+    "fields": [
+        {
+            "fieldName": "associateId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "role",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181002234916",
+    "javadoc": "The Employee entity.",
+    "entityTableName": "access",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

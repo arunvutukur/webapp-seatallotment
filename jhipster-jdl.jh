@@ -1,0 +1,36 @@
+// an ignored comment
+/** not an ignored comment */
+entity Seatalloted {
+	seatNumber String,
+	location String,
+	floor String,
+	vacancy String,
+    requestForApproval String,
+    pendingForApproval	String
+}
+
+/**
+ * The Employee entity.
+ */
+entity Access {
+	
+	associateId String,
+	role String,
+	password String,
+}
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
+// Set pagination options
+paginate Access,Seatalloted with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="seatalloted">
+            <h2><span>Seatalloted</span> {{seatalloted.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Seat Number</span></dt>
+                <dd>
+                    <span>{{seatalloted.seatNumber}}</span>
+                </dd>
+                <dt><span>Location</span></dt>
+                <dd>
+                    <span>{{seatalloted.location}}</span>
+                </dd>
+                <dt><span>Floor</span></dt>
+                <dd>
+                    <span>{{seatalloted.floor}}</span>
+                </dd>
+                <dt><span>Vacancy</span></dt>
+                <dd>
+                    <span>{{seatalloted.vacancy}}</span>
+                </dd>
+                <dt><span>Request For Approval</span></dt>
+                <dd>
+                    <span>{{seatalloted.requestForApproval}}</span>
+                </dd>
+                <dt><span>Pending For Approval</span></dt>
+                <dd>
+                    <span>{{seatalloted.pendingForApproval}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/seatalloted', seatalloted.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

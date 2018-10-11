@@ -1,0 +1,40 @@
+{
+    "name": "Seatalloted",
+    "fields": [
+        {
+            "fieldName": "seatNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "floor",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vacancy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "requestForApproval",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pendingForApproval",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181002234915",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "seatalloted",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

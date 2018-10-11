@@ -1,0 +1,72 @@
+<div>
+    <h2 id="page-heading">
+        <span>Seat Allocation Status</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-seatalloted" [routerLink]="['/seatalloted/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new seat assignment
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="seatalloteds">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="seatNumber"><span>Seat Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="location"><span>Location</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="floor"><span>Floor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="vacancy"><span>Vacancy</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="requestForApproval"><span>Request For Approval</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="pendingForApproval"><span>Pending For Approval</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let seatalloted of seatalloteds ;trackBy: trackId">
+                <td><a [routerLink]="['/seatalloted', seatalloted.id, 'view' ]">{{seatalloted.id}}</a></td>
+                <td>{{seatalloted.seatNumber}}</td>
+                <td>{{seatalloted.location}}</td>
+                <td>{{seatalloted.floor}}</td>
+                <td>{{seatalloted.vacancy}}</td>
+                <td>{{seatalloted.requestForApproval}}</td>
+                <td>{{seatalloted.pendingForApproval}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/seatalloted', seatalloted.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/seatalloted', seatalloted.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'seatalloted/'+ seatalloted.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="seatalloteds && seatalloteds.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
