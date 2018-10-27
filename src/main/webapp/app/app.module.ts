@@ -21,6 +21,9 @@ import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
 
+
+
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -30,7 +33,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         SeatallocationCoreModule,
         SeatallocationHomeModule,
         SeatallocationAccountModule,
-        SeatallocationEntityModule
+        SeatallocationEntityModule,       
+        
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
