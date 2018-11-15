@@ -81,6 +81,22 @@ public class SeatallotedResource {
             .body(result);
     }
 
+    @PutMapping("/seatalloteds/request")
+    @Timed
+    public ResponseEntity<Seatalloted> updateSeatalloted(@RequestBody Seatalloted seatalloted,boolean requestForApproval)
+            throws URISyntaxException {
+        log.debug("REST request to update Seatalloted : {}", seatalloted);
+        if (seatalloted.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Optional<Seatalloted> seatallotedOptional=seatallotedRepository.findById(seatalloted.getId());
+        Seatalloted seatallotedEntity=seatallotedOptional.get();
+        seatallotedEntity.setRequestForApproval(requestForApproval);
+        seatallotedEntity.setPendingForApproval(!requestForApproval);
+        Seatalloted result = seatallotedRepository.save(seatallotedEntity);
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString())).body(result);
+    }
     /**
      * GET  /seatalloteds : get all the seatalloteds.
      *

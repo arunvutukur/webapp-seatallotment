@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-
 import { VERSION } from 'app/app.constants';
 import { Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
+import { SeatallotedService } from 'app/entities/seatalloted';
 
 @Component({
     selector: 'jhi-navbar',
@@ -18,16 +18,19 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
-
+    numberOfRequests: number;
     constructor(
         private loginService: LoginService,
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
-        private router: Router
+        private router: Router,
+        private seatallotedservice: SeatallotedService
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
+        this.numberOfRequests = seatallotedservice.getNumberOfRequests();
+        console.log('number of requests in navbar component' + this.numberOfRequests);
     }
 
     ngOnInit() {

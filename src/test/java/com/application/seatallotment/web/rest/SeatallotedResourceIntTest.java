@@ -46,14 +46,14 @@ public class SeatallotedResourceIntTest {
     private static final String DEFAULT_FLOOR = "AAAAAAAAAA";
     private static final String UPDATED_FLOOR = "BBBBBBBBBB";
 
-    private static final String DEFAULT_VACANCY = "AAAAAAAAAA";
-    private static final String UPDATED_VACANCY = "BBBBBBBBBB";
+    private static final Boolean DEFAULT_ALLOTED = false;
+    private static final Boolean UPDATED_ALLOTED = true;
 
-    private static final String DEFAULT_REQUEST_FOR_APPROVAL = "AAAAAAAAAA";
-    private static final String UPDATED_REQUEST_FOR_APPROVAL = "BBBBBBBBBB";
+    private static final Boolean DEFAULT_REQUEST_FOR_APPROVAL = false;
+    private static final Boolean UPDATED_REQUEST_FOR_APPROVAL = true;
 
-    private static final String DEFAULT_PENDING_FOR_APPROVAL = "AAAAAAAAAA";
-    private static final String UPDATED_PENDING_FOR_APPROVAL = "BBBBBBBBBB";
+    private static final Boolean DEFAULT_PENDING_FOR_APPROVAL = false;
+    private static final Boolean UPDATED_PENDING_FOR_APPROVAL = true;
 
     @Autowired
     private SeatallotedRepository seatallotedRepository;
@@ -93,7 +93,7 @@ public class SeatallotedResourceIntTest {
             .seatNumber(DEFAULT_SEAT_NUMBER)
             .location(DEFAULT_LOCATION)
             .floor(DEFAULT_FLOOR)
-            .vacancy(DEFAULT_VACANCY)
+            .alloted(DEFAULT_ALLOTED)
             .requestForApproval(DEFAULT_REQUEST_FOR_APPROVAL)
             .pendingForApproval(DEFAULT_PENDING_FOR_APPROVAL);
         return seatalloted;
@@ -122,9 +122,9 @@ public class SeatallotedResourceIntTest {
         assertThat(testSeatalloted.getSeatNumber()).isEqualTo(DEFAULT_SEAT_NUMBER);
         assertThat(testSeatalloted.getLocation()).isEqualTo(DEFAULT_LOCATION);
         assertThat(testSeatalloted.getFloor()).isEqualTo(DEFAULT_FLOOR);
-        assertThat(testSeatalloted.getVacancy()).isEqualTo(DEFAULT_VACANCY);
-        assertThat(testSeatalloted.getRequestForApproval()).isEqualTo(DEFAULT_REQUEST_FOR_APPROVAL);
-        assertThat(testSeatalloted.getPendingForApproval()).isEqualTo(DEFAULT_PENDING_FOR_APPROVAL);
+        assertThat(testSeatalloted.isAlloted()).isEqualTo(DEFAULT_ALLOTED);
+        assertThat(testSeatalloted.isRequestForApproval()).isEqualTo(DEFAULT_REQUEST_FOR_APPROVAL);
+        assertThat(testSeatalloted.isPendingForApproval()).isEqualTo(DEFAULT_PENDING_FOR_APPROVAL);
     }
 
     @Test
@@ -158,9 +158,9 @@ public class SeatallotedResourceIntTest {
             .andExpect(jsonPath("$.[*].seatNumber").value(hasItem(DEFAULT_SEAT_NUMBER.toString())))
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION.toString())))
             .andExpect(jsonPath("$.[*].floor").value(hasItem(DEFAULT_FLOOR.toString())))
-            .andExpect(jsonPath("$.[*].vacancy").value(hasItem(DEFAULT_VACANCY.toString())))
-            .andExpect(jsonPath("$.[*].requestForApproval").value(hasItem(DEFAULT_REQUEST_FOR_APPROVAL.toString())))
-            .andExpect(jsonPath("$.[*].pendingForApproval").value(hasItem(DEFAULT_PENDING_FOR_APPROVAL.toString())));
+            .andExpect(jsonPath("$.[*].alloted").value(hasItem(DEFAULT_ALLOTED.booleanValue())))
+            .andExpect(jsonPath("$.[*].requestForApproval").value(hasItem(DEFAULT_REQUEST_FOR_APPROVAL.booleanValue())))
+            .andExpect(jsonPath("$.[*].pendingForApproval").value(hasItem(DEFAULT_PENDING_FOR_APPROVAL.booleanValue())));
     }
     
     @Test
@@ -176,9 +176,9 @@ public class SeatallotedResourceIntTest {
             .andExpect(jsonPath("$.seatNumber").value(DEFAULT_SEAT_NUMBER.toString()))
             .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION.toString()))
             .andExpect(jsonPath("$.floor").value(DEFAULT_FLOOR.toString()))
-            .andExpect(jsonPath("$.vacancy").value(DEFAULT_VACANCY.toString()))
-            .andExpect(jsonPath("$.requestForApproval").value(DEFAULT_REQUEST_FOR_APPROVAL.toString()))
-            .andExpect(jsonPath("$.pendingForApproval").value(DEFAULT_PENDING_FOR_APPROVAL.toString()));
+            .andExpect(jsonPath("$.alloted").value(DEFAULT_ALLOTED.booleanValue()))
+            .andExpect(jsonPath("$.requestForApproval").value(DEFAULT_REQUEST_FOR_APPROVAL.booleanValue()))
+            .andExpect(jsonPath("$.pendingForApproval").value(DEFAULT_PENDING_FOR_APPROVAL.booleanValue()));
     }
 
     @Test
@@ -201,7 +201,7 @@ public class SeatallotedResourceIntTest {
             .seatNumber(UPDATED_SEAT_NUMBER)
             .location(UPDATED_LOCATION)
             .floor(UPDATED_FLOOR)
-            .vacancy(UPDATED_VACANCY)
+            .alloted(UPDATED_ALLOTED)
             .requestForApproval(UPDATED_REQUEST_FOR_APPROVAL)
             .pendingForApproval(UPDATED_PENDING_FOR_APPROVAL);
 
@@ -217,9 +217,9 @@ public class SeatallotedResourceIntTest {
         assertThat(testSeatalloted.getSeatNumber()).isEqualTo(UPDATED_SEAT_NUMBER);
         assertThat(testSeatalloted.getLocation()).isEqualTo(UPDATED_LOCATION);
         assertThat(testSeatalloted.getFloor()).isEqualTo(UPDATED_FLOOR);
-        assertThat(testSeatalloted.getVacancy()).isEqualTo(UPDATED_VACANCY);
-        assertThat(testSeatalloted.getRequestForApproval()).isEqualTo(UPDATED_REQUEST_FOR_APPROVAL);
-        assertThat(testSeatalloted.getPendingForApproval()).isEqualTo(UPDATED_PENDING_FOR_APPROVAL);
+        assertThat(testSeatalloted.isAlloted()).isEqualTo(UPDATED_ALLOTED);
+        assertThat(testSeatalloted.isRequestForApproval()).isEqualTo(UPDATED_REQUEST_FOR_APPROVAL);
+        assertThat(testSeatalloted.isPendingForApproval()).isEqualTo(UPDATED_PENDING_FOR_APPROVAL);
     }
 
     @Test

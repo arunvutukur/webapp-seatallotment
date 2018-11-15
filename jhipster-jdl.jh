@@ -4,9 +4,9 @@ entity Seatalloted {
 	seatNumber String,
 	location String,
 	floor String,
-	vacancy String,
-    requestForApproval String,
-    pendingForApproval	String
+	alloted Boolean,
+    requestForApproval Boolean,
+    pendingForApproval	Boolean
 }
 
 /**
@@ -16,7 +16,17 @@ entity Access {
 	
 	associateId String,
 	role String,
-	password String,
+	password String
+}
+
+entity Employee {
+	name String,
+	empId String,
+	manager String,
+	email String,
+	location String,
+	requestForApproval Boolean,
+	pendingForApproval Boolean
 }
 
 enum Language {
@@ -24,13 +34,14 @@ enum Language {
 }
 
 // Set pagination options
-paginate Access,Seatalloted with pagination
+paginate Access,Seatalloted,Employee with pagination
 
 // Use Data Transfert Objects (DTO)
 // dto * with mapstruct
+dto Employee with mapstruct
 
 // Set service options to all except few
-
+service Employee with serviceImpl 
 
 // Set an angular suffix
 // angularSuffix * with mySuffix

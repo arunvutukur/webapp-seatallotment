@@ -34,6 +34,8 @@ spring:
         mongodb:
             uri: mongodb://localhost:27017
             database: seatallocation
+            username: admin
+            password: admin
     mail:
         host: localhost
         port: 25

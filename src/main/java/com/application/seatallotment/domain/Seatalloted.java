@@ -29,14 +29,14 @@ public class Seatalloted implements Serializable {
     @Field("floor")
     private String floor;
 
-    @Field("vacancy")
-    private String vacancy;
+    @Field("allocated")
+    private Boolean alloted;
 
     @Field("requestForApproval")
-    private String requestForApproval;
+    private Boolean requestForApproval;
 
     @Field("pendingForApproval")
-    private String pendingForApproval;
+    private Boolean pendingForApproval;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -86,42 +86,42 @@ public class Seatalloted implements Serializable {
         this.floor = floor;
     }
 
-    public String getVacancy() {
-        return vacancy;
+    public Boolean isAlloted() {
+        return alloted;
     }
 
-    public Seatalloted vacancy(String vacancy) {
-        this.vacancy = vacancy;
+    public Seatalloted alloted(Boolean alloted) {
+        this.alloted = alloted;
         return this;
     }
 
-    public void setVacancy(String vacancy) {
-        this.vacancy = vacancy;
+    public void setAlloted(Boolean alloted) {
+        this.alloted = alloted;
     }
 
-    public String getRequestForApproval() {
+    public Boolean isRequestForApproval() {
         return requestForApproval;
     }
 
-    public Seatalloted requestForApproval(String requestForApproval) {
+    public Seatalloted requestForApproval(Boolean requestForApproval) {
         this.requestForApproval = requestForApproval;
         return this;
     }
 
-    public void setRequestForApproval(String requestForApproval) {
+    public void setRequestForApproval(Boolean requestForApproval) {
         this.requestForApproval = requestForApproval;
     }
 
-    public String getPendingForApproval() {
+    public Boolean isPendingForApproval() {
         return pendingForApproval;
     }
 
-    public Seatalloted pendingForApproval(String pendingForApproval) {
+    public Seatalloted pendingForApproval(Boolean pendingForApproval) {
         this.pendingForApproval = pendingForApproval;
         return this;
     }
 
-    public void setPendingForApproval(String pendingForApproval) {
+    public void setPendingForApproval(Boolean pendingForApproval) {
         this.pendingForApproval = pendingForApproval;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
@@ -153,9 +153,9 @@ public class Seatalloted implements Serializable {
             ", seatNumber='" + getSeatNumber() + "'" +
             ", location='" + getLocation() + "'" +
             ", floor='" + getFloor() + "'" +
-            ", vacancy='" + getVacancy() + "'" +
-            ", requestForApproval='" + getRequestForApproval() + "'" +
-            ", pendingForApproval='" + getPendingForApproval() + "'" +
+            ", alloted='" + isAlloted() + "'" +
+            ", requestForApproval='" + isRequestForApproval() + "'" +
+            ", pendingForApproval='" + isPendingForApproval() + "'" +
             "}";
     }
 }

@@ -1,21 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { ISeatalloted } from 'app/shared/model/seatalloted.model';
+import { IEmployee } from 'app/shared/model/employee.model';
 import { Principal } from 'app/core';
+
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { SeatallotedService } from './seatalloted.service';
+import { EmployeeService } from './employee.service';
 
 @Component({
-    selector: 'jhi-seatalloted',
-    templateUrl: './seatalloted.component.html'
+    selector: 'jhi-employee',
+    templateUrl: './employee.component.html'
 })
-export class SeatallotedComponent implements OnInit, OnDestroy {
+export class EmployeeComponent implements OnInit, OnDestroy {
     currentAccount: any;
-    seatalloteds: ISeatalloted[];
+    employees: IEmployee[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -25,14 +26,12 @@ export class SeatallotedComponent implements OnInit, OnDestroy {
     queryCount: any;
     itemsPerPage: any;
     page: any;
-    isSaving: boolean;
     predicate: any;
     previousPage: any;
     reverse: any;
-    seatalloted: ISeatalloted;
-    requestForApproval: boolean;
+
     constructor(
-        private seatallotedService: SeatallotedService,
+        private employeeService: EmployeeService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -41,7 +40,6 @@ export class SeatallotedComponent implements OnInit, OnDestroy {
         private eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.requestForApproval = false;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;
@@ -50,27 +48,15 @@ export class SeatallotedComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInSeatalloteds();
-        this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ seatalloted }) => {
-            this.seatalloted = seatalloted;
-        });
-    }
-
     loadAll() {
-        this.seatallotedService
+        this.employeeService
             .query({
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort()
             })
             .subscribe(
-                (res: HttpResponse<ISeatalloted[]>) => this.paginateSeatalloteds(res.body, res.headers),
+                (res: HttpResponse<IEmployee[]>) => this.paginateEmployees(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -83,7 +69,7 @@ export class SeatallotedComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/seatalloted'], {
+        this.router.navigate(['/employee'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -96,7 +82,7 @@ export class SeatallotedComponent implements OnInit, OnDestroy {
     clear() {
         this.page = 0;
         this.router.navigate([
-            '/seatalloted',
+            '/employee',
             {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -105,16 +91,24 @@ export class SeatallotedComponent implements OnInit, OnDestroy {
         this.loadAll();
     }
 
+    ngOnInit() {
+        this.loadAll();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
+        this.registerChangeInEmployees();
+    }
+
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: ISeatalloted) {
+    trackId(index: number, item: IEmployee) {
         return item.id;
     }
 
-    registerChangeInSeatalloteds() {
-        this.eventSubscriber = this.eventManager.subscribe('seatallotedListModification', response => this.loadAll());
+    registerChangeInEmployees() {
+        this.eventSubscriber = this.eventManager.subscribe('employeeListModification', response => this.loadAll());
     }
 
     sort() {
@@ -125,34 +119,14 @@ export class SeatallotedComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    private paginateSeatalloteds(data: ISeatalloted[], headers: HttpHeaders) {
+    private paginateEmployees(data: IEmployee[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
-        this.seatalloteds = data;
+        this.employees = data;
     }
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
-    }
-    updateRequested(requestForApproval: boolean) {
-        this.seatallotedService.setNumberOfRequests(this.seatallotedService.getNumberOfRequests() + 1);
-        this.subscribeToSaveResponse(this.seatallotedService.updateRequestForApproval(this.seatalloted, requestForApproval));
-    }
-
-    private subscribeToSaveResponse(result: Observable<HttpResponse<ISeatalloted>>) {
-        result.subscribe((res: HttpResponse<ISeatalloted>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-    }
-
-    private onSaveSuccess() {
-        this.isSaving = true;
-        this.previousState();
-    }
-
-    private onSaveError() {
-        this.isSaving = false;
-    }
-    previousState() {
-        window.history.back();
     }
 }

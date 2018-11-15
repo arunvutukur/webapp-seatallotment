@@ -12,6 +12,7 @@ import { SeatallotedDetailComponent } from './seatalloted-detail.component';
 import { SeatallotedUpdateComponent } from './seatalloted-update.component';
 import { SeatallotedDeletePopupComponent } from './seatalloted-delete-dialog.component';
 import { ISeatalloted } from 'app/shared/model/seatalloted.model';
+import { RequestComponent } from './request';
 
 @Injectable({ providedIn: 'root' })
 export class SeatallotedResolve implements Resolve<ISeatalloted> {
@@ -67,6 +68,18 @@ export const seatallotedRoute: Routes = [
     {
         path: 'seatalloted/:id/edit',
         component: SeatallotedUpdateComponent,
+        resolve: {
+            seatalloted: SeatallotedResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'Seatalloteds'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'seatalloted/:id/request',
+        component: RequestComponent,
         resolve: {
             seatalloted: SeatallotedResolve
         },

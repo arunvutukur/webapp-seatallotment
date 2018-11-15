@@ -1,33 +1,37 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <div *ngIf="seatalloted">
-            <h2><span>Seatalloted</span> {{seatalloted.id}}</h2>
+        <div *ngIf="employee">
+            <h2><span>Employee</span> {{employee.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Seat Number</span></dt>
+                <dt><span>Name</span></dt>
                 <dd>
-                    <span>{{seatalloted.seatNumber}}</span>
+                    <span>{{employee.name}}</span>
+                </dd>
+                <dt><span>Emp Id</span></dt>
+                <dd>
+                    <span>{{employee.empId}}</span>
+                </dd>
+                <dt><span>Manager</span></dt>
+                <dd>
+                    <span>{{employee.manager}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{employee.email}}</span>
                 </dd>
                 <dt><span>Location</span></dt>
                 <dd>
-                    <span>{{seatalloted.location}}</span>
-                </dd>
-                <dt><span>Floor</span></dt>
-                <dd>
-                    <span>{{seatalloted.floor}}</span>
-                </dd>
-                <dt><span>Alloted</span></dt>
-                <dd>
-                    <span>{{seatalloted.alloted}}</span>
+                    <span>{{employee.location}}</span>
                 </dd>
                 <dt><span>Request For Approval</span></dt>
                 <dd>
-                    <span>{{seatalloted.requestForApproval}}</span>
+                    <span>{{employee.requestForApproval}}</span>
                 </dd>
                 <dt><span>Pending For Approval</span></dt>
                 <dd>
-                    <span>{{seatalloted.pendingForApproval}}</span>
+                    <span>{{employee.pendingForApproval}}</span>
                 </dd>
             </dl>
 
@@ -38,7 +42,7 @@
             </button>
 
             <button type="button"
-                    [routerLink]="['/seatalloted', seatalloted.id, 'edit']"
+                    [routerLink]="['/employee', employee.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>

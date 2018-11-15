@@ -11,6 +11,7 @@ import {
     seatallotedRoute,
     seatallotedPopupRoute
 } from './';
+import { RequestComponent } from './request';
 
 const ENTITY_STATES = [...seatallotedRoute, ...seatallotedPopupRoute];
 
@@ -21,7 +22,8 @@ const ENTITY_STATES = [...seatallotedRoute, ...seatallotedPopupRoute];
         SeatallotedDetailComponent,
         SeatallotedUpdateComponent,
         SeatallotedDeleteDialogComponent,
-        SeatallotedDeletePopupComponent
+        SeatallotedDeletePopupComponent,
+        RequestComponent
     ],
     entryComponents: [SeatallotedComponent, SeatallotedUpdateComponent, SeatallotedDeleteDialogComponent, SeatallotedDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

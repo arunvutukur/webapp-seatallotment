@@ -1,21 +1,25 @@
 {
-    "name": "Seatalloted",
+    "name": "Employee",
     "fields": [
         {
-            "fieldName": "seatNumber",
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "empId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "manager",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
             "fieldType": "String"
         },
         {
             "fieldName": "location",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "floor",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "alloted",
-            "fieldType": "Boolean"
         },
         {
             "fieldName": "requestForApproval",
@@ -27,12 +31,11 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20181002234915",
-    "javadoc": "not an ignored comment",
-    "entityTableName": "seatalloted",
-    "dto": "no",
+    "changelogDate": "20181113172315",
+    "entityTableName": "employee",
+    "dto": "mapstruct",
     "pagination": "pagination",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

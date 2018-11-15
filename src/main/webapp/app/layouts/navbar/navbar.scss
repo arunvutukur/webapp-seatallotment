@@ -76,3 +76,23 @@ Logo styles
         }
     }
 }
+a.fa-globe {
+    position: relative;
+    font-size: 2em;
+    color: grey;
+    cursor: pointer;
+}
+span.fa-comment {
+    position: absolute;
+    font-size: 0.6em;
+    top: -4px;
+    color: red;
+    right: -4px;
+}
+span.num {
+    position: absolute;
+    font-size: 0.3em;
+    top: 1px;
+    color: #fff;
+    right: 2px;
+}

@@ -1,43 +1,48 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-seatalloted-heading">Create or edit a Seatalloted</h2>
+            <h2 id="jhi-employee-heading">Create or edit a Employee</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!seatalloted.id">
+                <div class="form-group" [hidden]="!employee.id">
                     <label for="id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="seatalloted.id" readonly />
+                        [(ngModel)]="employee.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_seatNumber">Seat Number</label>
-                    <input type="text" class="form-control" name="seatNumber" id="field_seatNumber"
-                        [(ngModel)]="seatalloted.seatNumber" />
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="employee.name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_empId">Emp Id</label>
+                    <input type="text" class="form-control" name="empId" id="field_empId"
+                        [(ngModel)]="employee.empId" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_manager">Manager</label>
+                    <input type="text" class="form-control" name="manager" id="field_manager"
+                        [(ngModel)]="employee.manager" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                        [(ngModel)]="employee.email" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_location">Location</label>
                     <input type="text" class="form-control" name="location" id="field_location"
-                        [(ngModel)]="seatalloted.location" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_floor">Floor</label>
-                    <input type="text" class="form-control" name="floor" id="field_floor"
-                        [(ngModel)]="seatalloted.floor" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_alloted">Alloted</label>
-                    <input type="checkbox" class="form-control" name="alloted" id="field_alloted"
-                        [(ngModel)]="seatalloted.alloted" />
+                        [(ngModel)]="employee.location" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_requestForApproval">Request For Approval</label>
                     <input type="checkbox" class="form-control" name="requestForApproval" id="field_requestForApproval"
-                        [(ngModel)]="seatalloted.requestForApproval" />
+                        [(ngModel)]="employee.requestForApproval" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_pendingForApproval">Pending For Approval</label>
                     <input type="checkbox" class="form-control" name="pendingForApproval" id="field_pendingForApproval"
-                        [(ngModel)]="seatalloted.pendingForApproval" />
+                        [(ngModel)]="employee.pendingForApproval" />
                 </div>
 
             </div>
