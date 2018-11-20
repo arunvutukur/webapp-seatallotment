@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiResolvePagingParams } from 'ng-jhipster';
+import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Employee } from 'app/shared/model/employee.model';
 import { EmployeeService } from './employee.service';
 import { EmployeeComponent } from './employee.component';
@@ -11,18 +12,18 @@ import { EmployeeDetailComponent } from './employee-detail.component';
 import { EmployeeUpdateComponent } from './employee-update.component';
 import { EmployeeDeletePopupComponent } from './employee-delete-dialog.component';
 import { IEmployee } from 'app/shared/model/employee.model';
-import { map } from 'rxjs/operators';
+import { FormUploadComponent } from '../form-upload/form-upload.component';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeResolve implements Resolve<IEmployee> {
     constructor(private service: EmployeeService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const id = route.params['empId'] ? route.params['empId'] : null;
+        const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
             return this.service.find(id).pipe(map((employee: HttpResponse<Employee>) => employee.body));
         }
-        return Observable.of(new Employee());
+        return of(new Employee());
     }
 }
 
@@ -41,7 +42,7 @@ export const employeeRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'employee/:empId/view',
+        path: 'employee/:id/view',
         component: EmployeeDetailComponent,
         resolve: {
             employee: EmployeeResolve
@@ -65,7 +66,7 @@ export const employeeRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'employee/:empId/edit',
+        path: 'employee/:id/edit',
         component: EmployeeUpdateComponent,
         resolve: {
             employee: EmployeeResolve
@@ -75,12 +76,16 @@ export const employeeRoute: Routes = [
             pageTitle: 'Employees'
         },
         canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'employee/upload',
+        component: FormUploadComponent
     }
 ];
 
 export const employeePopupRoute: Routes = [
     {
-        path: 'employee/:empId/delete',
+        path: 'employee/:id/delete',
         component: EmployeeDeletePopupComponent,
         resolve: {
             employee: EmployeeResolve

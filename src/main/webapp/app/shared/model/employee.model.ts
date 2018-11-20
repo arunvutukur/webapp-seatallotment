@@ -5,6 +5,7 @@ export interface IEmployee {
     manager?: string;
     email?: string;
     location?: string;
+    department?: string;
     requestForApproval?: boolean;
     pendingForApproval?: boolean;
 }
@@ -17,6 +18,7 @@ export class Employee implements IEmployee {
         public manager?: string,
         public email?: string,
         public location?: string,
+        public department?: string,
         public requestForApproval?: boolean,
         public pendingForApproval?: boolean
     ) {

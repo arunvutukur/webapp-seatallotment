@@ -29,7 +29,7 @@ export class EmployeeUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.employee.empId !== undefined) {
+        if (this.employee.id !== undefined) {
             this.subscribeToSaveResponse(this.employeeService.update(this.employee));
         } else {
             this.subscribeToSaveResponse(this.employeeService.create(this.employee));

@@ -8,6 +8,8 @@ import java.util.Objects;
  */
 public class EmployeeDTO implements Serializable {
 
+    private static final long serialVersionUID = 8707144465477067803L;
+
     private String id;
 
     private String name;
@@ -19,6 +21,8 @@ public class EmployeeDTO implements Serializable {
     private String email;
 
     private String location;
+
+    private String department;
 
     private Boolean requestForApproval;
 
@@ -72,6 +76,14 @@ public class EmployeeDTO implements Serializable {
         this.location = location;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     public Boolean isRequestForApproval() {
         return requestForApproval;
     }
@@ -86,6 +98,10 @@ public class EmployeeDTO implements Serializable {
 
     public void setPendingForApproval(Boolean pendingForApproval) {
         this.pendingForApproval = pendingForApproval;
+    }
+
+    public EmployeeDTO(){
+
     }
 
     @Override
@@ -118,6 +134,7 @@ public class EmployeeDTO implements Serializable {
             ", manager='" + getManager() + "'" +
             ", email='" + getEmail() + "'" +
             ", location='" + getLocation() + "'" +
+            ", department='" + getDepartment() + "'" +
             ", requestForApproval='" + isRequestForApproval() + "'" +
             ", pendingForApproval='" + isPendingForApproval() + "'" +
             "}";

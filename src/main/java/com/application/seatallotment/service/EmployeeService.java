@@ -11,6 +11,7 @@ import java.util.Optional;
  * Service Interface for managing Employee.
  */
 public interface EmployeeService {
+
     /**
      * Save a employee.
      *
@@ -19,8 +20,6 @@ public interface EmployeeService {
      */
     EmployeeDTO save(EmployeeDTO employeeDTO);
 
-    EmployeeDTO update(EmployeeDTO employeeDTO);
-
     /**
      * Get all the employees.
      *
@@ -28,6 +27,7 @@ public interface EmployeeService {
      * @return the list of entities
      */
     Page<EmployeeDTO> findAll(Pageable pageable);
+
 
     /**
      * Get the "id" employee.
@@ -43,6 +43,4 @@ public interface EmployeeService {
      * @param id the id of the entity
      */
     void delete(String id);
-
-    Optional<EmployeeDTO> findByempId(String id);
 }

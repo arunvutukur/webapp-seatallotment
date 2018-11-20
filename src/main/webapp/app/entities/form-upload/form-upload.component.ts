@@ -4,7 +4,6 @@ import { HttpResponse, HttpEventType } from '@angular/common/http';
 
 @Component({
     // tslint:disable-next-line:component-selector
-    selector: 'jhi-form-upload',
     templateUrl: './form-upload.component.html',
     styleUrls: ['./form-upload.component.css']
 })

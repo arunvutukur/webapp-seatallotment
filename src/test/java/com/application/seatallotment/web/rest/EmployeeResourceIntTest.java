@@ -55,6 +55,9 @@ public class EmployeeResourceIntTest {
     private static final String DEFAULT_LOCATION = "AAAAAAAAAA";
     private static final String UPDATED_LOCATION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DEPARTMENT = "AAAAAAAAAA";
+    private static final String UPDATED_DEPARTMENT = "BBBBBBBBBB";
+
     private static final Boolean DEFAULT_REQUEST_FOR_APPROVAL = false;
     private static final Boolean UPDATED_REQUEST_FOR_APPROVAL = true;
 
@@ -107,6 +110,7 @@ public class EmployeeResourceIntTest {
             .manager(DEFAULT_MANAGER)
             .email(DEFAULT_EMAIL)
             .location(DEFAULT_LOCATION)
+            .department(DEFAULT_DEPARTMENT)
             .requestForApproval(DEFAULT_REQUEST_FOR_APPROVAL)
             .pendingForApproval(DEFAULT_PENDING_FOR_APPROVAL);
         return employee;
@@ -138,6 +142,7 @@ public class EmployeeResourceIntTest {
         assertThat(testEmployee.getManager()).isEqualTo(DEFAULT_MANAGER);
         assertThat(testEmployee.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testEmployee.getLocation()).isEqualTo(DEFAULT_LOCATION);
+        assertThat(testEmployee.getDepartment()).isEqualTo(DEFAULT_DEPARTMENT);
         assertThat(testEmployee.isRequestForApproval()).isEqualTo(DEFAULT_REQUEST_FOR_APPROVAL);
         assertThat(testEmployee.isPendingForApproval()).isEqualTo(DEFAULT_PENDING_FOR_APPROVAL);
     }
@@ -176,6 +181,7 @@ public class EmployeeResourceIntTest {
             .andExpect(jsonPath("$.[*].manager").value(hasItem(DEFAULT_MANAGER.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION.toString())))
+            .andExpect(jsonPath("$.[*].department").value(hasItem(DEFAULT_DEPARTMENT.toString())))
             .andExpect(jsonPath("$.[*].requestForApproval").value(hasItem(DEFAULT_REQUEST_FOR_APPROVAL.booleanValue())))
             .andExpect(jsonPath("$.[*].pendingForApproval").value(hasItem(DEFAULT_PENDING_FOR_APPROVAL.booleanValue())));
     }
@@ -195,6 +201,7 @@ public class EmployeeResourceIntTest {
             .andExpect(jsonPath("$.manager").value(DEFAULT_MANAGER.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
             .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION.toString()))
+            .andExpect(jsonPath("$.department").value(DEFAULT_DEPARTMENT.toString()))
             .andExpect(jsonPath("$.requestForApproval").value(DEFAULT_REQUEST_FOR_APPROVAL.booleanValue()))
             .andExpect(jsonPath("$.pendingForApproval").value(DEFAULT_PENDING_FOR_APPROVAL.booleanValue()));
     }
@@ -221,6 +228,7 @@ public class EmployeeResourceIntTest {
             .manager(UPDATED_MANAGER)
             .email(UPDATED_EMAIL)
             .location(UPDATED_LOCATION)
+            .department(UPDATED_DEPARTMENT)
             .requestForApproval(UPDATED_REQUEST_FOR_APPROVAL)
             .pendingForApproval(UPDATED_PENDING_FOR_APPROVAL);
         EmployeeDTO employeeDTO = employeeMapper.toDto(updatedEmployee);
@@ -239,6 +247,7 @@ public class EmployeeResourceIntTest {
         assertThat(testEmployee.getManager()).isEqualTo(UPDATED_MANAGER);
         assertThat(testEmployee.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testEmployee.getLocation()).isEqualTo(UPDATED_LOCATION);
+        assertThat(testEmployee.getDepartment()).isEqualTo(UPDATED_DEPARTMENT);
         assertThat(testEmployee.isRequestForApproval()).isEqualTo(UPDATED_REQUEST_FOR_APPROVAL);
         assertThat(testEmployee.isPendingForApproval()).isEqualTo(UPDATED_PENDING_FOR_APPROVAL);
     }

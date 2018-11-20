@@ -11,6 +11,7 @@ import {
     employeeRoute,
     employeePopupRoute
 } from './';
+import { FormUploadComponent } from '../form-upload/form-upload.component';
 
 const ENTITY_STATES = [...employeeRoute, ...employeePopupRoute];
 
@@ -21,7 +22,8 @@ const ENTITY_STATES = [...employeeRoute, ...employeePopupRoute];
         EmployeeDetailComponent,
         EmployeeUpdateComponent,
         EmployeeDeleteDialogComponent,
-        EmployeeDeletePopupComponent
+        EmployeeDeletePopupComponent,
+        FormUploadComponent
     ],
     entryComponents: [EmployeeComponent, EmployeeUpdateComponent, EmployeeDeleteDialogComponent, EmployeeDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

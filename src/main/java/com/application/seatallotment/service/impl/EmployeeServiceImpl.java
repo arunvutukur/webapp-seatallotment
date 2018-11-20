@@ -54,8 +54,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Page<EmployeeDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Employees");
-        return employeeRepository.findAll(pageable).map(employeeMapper::toDto);
+        return employeeRepository.findAll(pageable)
+            .map(employeeMapper::toDto);
     }
+
 
     /**
      * Get one employee by id.
@@ -66,7 +68,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Optional<EmployeeDTO> findOne(String id) {
         log.debug("Request to get Employee : {}", id);
-        return employeeRepository.findById(id).map(employeeMapper::toDto);
+        return employeeRepository.findById(id)
+            .map(employeeMapper::toDto);
     }
 
     /**
@@ -77,27 +80,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void delete(String id) {
         log.debug("Request to delete Employee : {}", id);
-        employeeRepository.deleteByempId(id);
-    }
-
-    @Override
-    public Optional<EmployeeDTO> findByempId(String id) {
-        log.debug("Request to delete Employee : {}", id);
-        return employeeRepository.findByempId(id).map(employeeMapper::toDto);
-    }
-
-    @Override
-    public EmployeeDTO update(EmployeeDTO employeeDTO) {
-        log.debug("Request to update Employee : {}", employeeDTO.getEmpId());
-        Optional<Employee> employee = employeeRepository.findByempId(employeeDTO.getEmpId());
-        employee.get().setEmail(employeeDTO.getEmail());
-        employee.get().setEmpId(employeeDTO.getEmpId());
-        employee.get().setLocation(employeeDTO.getLocation());
-        employee.get().setManager(employeeDTO.getManager());
-        employee.get().setName(employeeDTO.getName());
-        employee.get().setPendingForApproval(employeeDTO.isPendingForApproval());
-        employee.get().setRequestForApproval(employeeDTO.isRequestForApproval());
-        Employee employeeEntity = employeeRepository.save(employee.get());
-        return employeeMapper.toDto(employeeEntity);
+        employeeRepository.deleteById(id);
     }
 }

@@ -25,6 +25,7 @@ entity Employee {
 	manager String,
 	email String,
 	location String,
+	department String,
 	requestForApproval Boolean,
 	pendingForApproval Boolean
 }

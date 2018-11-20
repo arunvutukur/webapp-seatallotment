@@ -2,10 +2,10 @@ package com.application.seatallotment.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.Objects;
 
 /**
@@ -34,13 +34,30 @@ public class Employee implements Serializable {
     @Field("location")
     private String location;
 
-    @Field("requestForApproval")
+    @Field("department")
+    private String department;
+
+    @Field("request_for_approval")
     private Boolean requestForApproval;
 
-    @Field("pendingForApproval")
+    @Field("pending_for_approval")
     private Boolean pendingForApproval;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    public Employee(){
+
+    }
+    public Employee(String name, String empId, String manager, String email, String location, String department) {
+    this.name=name;
+    this.empId=empId;
+    this.manager=manager;
+    this.email=email;
+    this.location=location;
+    this.department=department;
+    this.requestForApproval=false;
+    this.pendingForApproval=false;
+    }
+
+	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
     }
@@ -114,6 +131,19 @@ public class Employee implements Serializable {
         this.location = location;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public Employee department(String department) {
+        this.department = department;
+        return this;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     public Boolean isRequestForApproval() {
         return requestForApproval;
     }
@@ -141,29 +171,6 @@ public class Employee implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    public Employee(){
-        super();
-    }
-
-    public Employee(Object[] values) throws ParseException {
-		super();
-		//this.id = values[0];
-		this.name = (String) values[1];
-		this.empId = (String) values[2];
-		this.email = (String) values[3];
-		this.location = (String) values[4];
-		//DateFormat df=new SimpleDateFormat("MMM dd yyyy hh:mmaa");
-		//Date date=df.parse((String) values[5]);
-		//this.createdDate = date;
-		this.manager = (String) values[6];
-		//this.roles = null;
-		//this.seatNo = (String) values[8];
-		Boolean requestForApproval = new Boolean((boolean) values[9]);
-        this.requestForApproval = requestForApproval;
-        Boolean pendingForApproval = new Boolean((boolean) values[10]);
-        this.pendingForApproval = pendingForApproval;
-    }
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -193,6 +200,7 @@ public class Employee implements Serializable {
             ", manager='" + getManager() + "'" +
             ", email='" + getEmail() + "'" +
             ", location='" + getLocation() + "'" +
+            ", department='" + getDepartment() + "'" +
             ", requestForApproval='" + isRequestForApproval() + "'" +
             ", pendingForApproval='" + isPendingForApproval() + "'" +
             "}";
