@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<ISeatalloted[]>;
 
 @Injectable({ providedIn: 'root' })
 export class SeatallotedService {
-    private resourceUrl = SERVER_API_URL + 'api/seatalloteds';
+    public resourceUrl = SERVER_API_URL + 'api/seatalloteds';
 
     constructor(private http: HttpClient) {}
 

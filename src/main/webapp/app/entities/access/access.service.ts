@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<IAccess[]>;
 
 @Injectable({ providedIn: 'root' })
 export class AccessService {
-    private resourceUrl = SERVER_API_URL + 'api/accesses';
+    public resourceUrl = SERVER_API_URL + 'api/accesses';
 
     constructor(private http: HttpClient) {}
 

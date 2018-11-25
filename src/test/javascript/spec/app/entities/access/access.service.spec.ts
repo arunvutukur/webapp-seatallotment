@@ -1,16 +1,18 @@
 /* tslint:disable max-line-length */
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+import { take, map } from 'rxjs/operators';
 import { AccessService } from 'app/entities/access/access.service';
-import { Access } from 'app/shared/model/access.model';
-import { SERVER_API_URL } from 'app/app.constants';
+import { IAccess, Access } from 'app/shared/model/access.model';
 
 describe('Service Tests', () => {
     describe('Access Service', () => {
         let injector: TestBed;
         let service: AccessService;
         let httpMock: HttpTestingController;
-
+        let elemDefault: IAccess;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
@@ -18,73 +20,84 @@ describe('Service Tests', () => {
             injector = getTestBed();
             service = injector.get(AccessService);
             httpMock = injector.get(HttpTestingController);
+
+            elemDefault = new Access('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
-        describe('Service methods', () => {
-            it('should call correct URL', () => {
-                service.find('123').subscribe(() => {});
+        describe('Service methods', async () => {
+            it('should find an element', async () => {
+                const returnedFromService = Object.assign({}, elemDefault);
+                service
+                    .find('123')
+                    .pipe(take(1))
+                    .subscribe(resp => expect(resp).toMatchObject({ body: elemDefault }));
 
                 const req = httpMock.expectOne({ method: 'GET' });
-
-                const resourceUrl = SERVER_API_URL + 'api/accesses';
-                expect(req.request.url).toEqual(resourceUrl + '/' + '123');
+                req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should create a Access', () => {
-                service.create(new Access(null)).subscribe(received => {
-                    expect(received.body.id).toEqual(null);
-                });
-
+            it('should create a Access', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        id: 'ID'
+                    },
+                    elemDefault
+                );
+                const expected = Object.assign({}, returnedFromService);
+                service
+                    .create(new Access(null))
+                    .pipe(take(1))
+                    .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'POST' });
-                req.flush({ id: null });
+                req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should update a Access', () => {
-                service.update(new Access('123')).subscribe(received => {
-                    expect(received.body.id).toEqual('123');
-                });
+            it('should update a Access', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        associateId: 'BBBBBB',
+                        role: 'BBBBBB',
+                        password: 'BBBBBB'
+                    },
+                    elemDefault
+                );
 
+                const expected = Object.assign({}, returnedFromService);
+                service
+                    .update(expected)
+                    .pipe(take(1))
+                    .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'PUT' });
-                req.flush({ id: '123' });
+                req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should return a Access', () => {
-                service.find('123').subscribe(received => {
-                    expect(received.body.id).toEqual('123');
-                });
-
+            it('should return a list of Access', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        associateId: 'BBBBBB',
+                        role: 'BBBBBB',
+                        password: 'BBBBBB'
+                    },
+                    elemDefault
+                );
+                const expected = Object.assign({}, returnedFromService);
+                service
+                    .query(expected)
+                    .pipe(
+                        take(1),
+                        map(resp => resp.body)
+                    )
+                    .subscribe(body => expect(body).toContainEqual(expected));
                 const req = httpMock.expectOne({ method: 'GET' });
-                req.flush({ id: '123' });
+                req.flush(JSON.stringify([returnedFromService]));
+                httpMock.verify();
             });
 
-            it('should return a list of Access', () => {
-                service.query(null).subscribe(received => {
-                    expect(received.body[0].id).toEqual('123');
-                });
-
-                const req = httpMock.expectOne({ method: 'GET' });
-                req.flush([new Access('123')]);
-            });
-
-            it('should delete a Access', () => {
-                service.delete('123').subscribe(received => {
-                    expect(received.url).toContain('/' + '123');
-                });
+            it('should delete a Access', async () => {
+                const rxPromise = service.delete('123').subscribe(resp => expect(resp.ok));
 
                 const req = httpMock.expectOne({ method: 'DELETE' });
-                req.flush(null);
-            });
-
-            it('should propagate not found response', () => {
-                service.find('123').subscribe(null, (_error: any) => {
-                    expect(_error.status).toEqual(404);
-                });
-
-                const req = httpMock.expectOne({ method: 'GET' });
-                req.flush('Invalid request parameters', {
-                    status: 404,
-                    statusText: 'Bad Request'
-                });
+                req.flush({ status: 200 });
             });
         });
 

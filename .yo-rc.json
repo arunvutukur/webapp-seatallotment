@@ -3,7 +3,7 @@
     "promptValues": {
       "packageName": "com.application.seatallotment"
     },
-    "jhipsterVersion": "5.3.1",
+    "jhipsterVersion": "5.7.0",
     "applicationType": "monolith",
     "baseName": "seatallocation",
     "packageName": "com.application.seatallotment",
@@ -28,6 +28,7 @@
     "testFrameworks": [],
     "jhiPrefix": "jhi",
     "enableTranslation": false,
-    "herokuDeployType": "git"
+    "herokuDeployType": "git",
+    "otherModules": []
   }
 }

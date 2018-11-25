@@ -3,8 +3,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Access } from 'app/shared/model/access.model';
 import { AccessService } from './access.service';
 import { AccessComponent } from './access.component';
@@ -17,10 +17,13 @@ import { IAccess } from 'app/shared/model/access.model';
 export class AccessResolve implements Resolve<IAccess> {
     constructor(private service: AccessService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Access> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((access: HttpResponse<Access>) => access.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Access>) => response.ok),
+                map((access: HttpResponse<Access>) => access.body)
+            );
         }
         return of(new Access());
     }

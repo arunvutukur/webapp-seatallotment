@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class Seatalloted implements Serializable {
     @Id
     private String id;
 
-    @Field("SeatNumber")
+    @Field("seat_number")
     private String seatNumber;
 
     @Field("location")
@@ -32,10 +33,10 @@ public class Seatalloted implements Serializable {
     @Field("vacancy")
     private String vacancy;
 
-    @Field("requestForApproval")
+    @Field("request_for_approval")
     private String requestForApproval;
 
-    @Field("pendingForApproval")
+    @Field("pending_for_approval")
     private String pendingForApproval;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
