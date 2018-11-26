@@ -19,7 +19,8 @@ public interface EmployeeService {
      * @return the persisted entity
      */
     EmployeeDTO save(EmployeeDTO employeeDTO);
-
+ 
+    EmployeeDTO update(EmployeeDTO employeeDTO);
     /**
      * Get all the employees.
      *

@@ -1,12 +1,19 @@
 <div>
     <h2 id="page-heading">
         <span>Employees</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-employee" [routerLink]="['/employee/new']">
+        <button id="jh-create-entity" *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-employee" [routerLink]="['/employee/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
             Create new Employee
             </span>
         </button>
+        <span>
+        <div>
+            <button id="jh-create-entity" *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-left " [routerLink]="['/employee/upload']">
+                <fa-icon [icon]="'plus'">IMPORT CSV</fa-icon>
+            </button>
+        </div>
+        </span>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
@@ -20,7 +27,7 @@
             <th jhiSortBy="manager"><span>Manager</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="location"><span>Location</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="department"><span>Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="department"><span>Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th jhiSortBy="requestForApproval"><span>Request For Approval</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="pendingForApproval"><span>Pending For Approval</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -33,7 +40,7 @@
                 <td>{{employee.manager}}</td>
                 <td>{{employee.email}}</td>
                 <td>{{employee.location}}</td>
-                <td>{{employee.department}}</td>
+                <!--<td>{{employee.department}}</td>-->
                 <td>{{employee.requestForApproval}}</td>
                 <td>{{employee.pendingForApproval}}</td>
                 <td class="text-right">
@@ -44,13 +51,13 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" *jhiHasAnyAuthority="'ROLE_ADMIN'"
                                 [routerLink]="['/employee', employee.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" *jhiHasAnyAuthority="'ROLE_ADMIN'"
                                 [routerLink]="['/', { outlets: { popup: 'employee/'+ employee.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
@@ -73,7 +80,4 @@
         </div>
     </div>
 </div>
-<div>
-<button id="jh-create-entity" class="btn btn-primary float-left " [routerLink]="['/employee/upload']">
-    <fa-icon [icon]="'pencil-alt'"></fa-icon></button>
-</div>
+

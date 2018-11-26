@@ -5,6 +5,8 @@ import com.application.seatallotment.domain.Employee;
 import com.application.seatallotment.repository.EmployeeRepository;
 import com.application.seatallotment.service.dto.EmployeeDTO;
 import com.application.seatallotment.service.mapper.EmployeeMapper;
+import com.application.seatallotment.web.rest.errors.BadRequestAlertException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +43,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDTO save(EmployeeDTO employeeDTO) {
         log.debug("Request to save Employee : {}", employeeDTO);
         Employee employee = employeeMapper.toEntity(employeeDTO);
+        if(employeeRepository.existsByempId(employee.getEmpId()))
+        throw new BadRequestAlertException("A new employee cannot already have an existing empID", employee.getEmpId(), ": Try deleting and adding again!");
         employee = employeeRepository.save(employee);
         return employeeMapper.toDto(employee);
     }
@@ -81,5 +85,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void delete(String id) {
         log.debug("Request to delete Employee : {}", id);
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public EmployeeDTO update(EmployeeDTO employeeDTO) {
+        log.debug("Request to update Employee : {}", employeeDTO);
+        Optional<Employee> employeeOptional = employeeRepository.findById(employeeDTO.getId());
+        employeeOptional.get().setDepartment(employeeDTO.getDepartment());
+        employeeOptional.get().setEmail(employeeDTO.getEmail());
+        employeeOptional.get().setName(employeeDTO.getName());
+        employeeOptional.get().setEmpId(employeeDTO.getEmpId());
+        employeeOptional.get().setManager(employeeDTO.getManager());
+        employeeOptional.get().setLocation(employeeDTO.getLocation());
+        employeeOptional.get().setPendingForApproval(false);
+        employeeOptional.get().setRequestForApproval(false);
+        Employee employee = employeeRepository.save(employeeOptional.get());
+        return employeeMapper.toDto(employee);
     }
 }

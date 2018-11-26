@@ -25,10 +25,10 @@
                 <dd>
                     <span>{{employee.location}}</span>
                 </dd>
-                <dt><span>Department</span></dt>
-                <dd>
+               <!-- <dt><span>Department</span></dt>-->
+                <!--<dd>
                     <span>{{employee.department}}</span>
-                </dd>
+                </dd>-->
                 <dt><span>Request For Approval</span></dt>
                 <dd>
                     <span>{{employee.requestForApproval}}</span>
@@ -45,7 +45,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
             </button>
 
-            <button type="button"
+            <button type="button" *jhiHasAnyAuthority="'ROLE_ADMIN'"
                     [routerLink]="['/employee', employee.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>

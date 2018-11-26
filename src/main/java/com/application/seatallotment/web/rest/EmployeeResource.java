@@ -55,7 +55,7 @@ public class EmployeeResource {
         }
         EmployeeDTO result = employeeService.save(employeeDTO);
         return ResponseEntity.created(new URI("/api/employees/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getEmpId().toString()))
             .body(result);
     }
 
@@ -75,9 +75,9 @@ public class EmployeeResource {
         if (employeeDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        EmployeeDTO result = employeeService.save(employeeDTO);
+        EmployeeDTO result = employeeService.update(employeeDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, employeeDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, employeeDTO.getEmpId().toString()))
             .body(result);
     }
 

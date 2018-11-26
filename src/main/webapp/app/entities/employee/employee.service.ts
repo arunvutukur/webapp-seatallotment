@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IEmployee } from 'app/shared/model/employee.model';
+import { IEmployee, Employee } from 'app/shared/model/employee.model';
 
 type EntityResponseType = HttpResponse<IEmployee>;
 type EntityArrayResponseType = HttpResponse<IEmployee[]>;
@@ -32,6 +32,9 @@ export class EmployeeService {
         return this.http.get<IEmployee[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    getAllEmployees(): Observable<Employee[]> {
+        return this.http.get<Employee[]>(this.resourceUrl);
+    }
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

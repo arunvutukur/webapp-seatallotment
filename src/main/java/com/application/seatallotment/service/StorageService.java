@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.regex.Pattern;
@@ -14,9 +11,6 @@ import java.util.stream.Collectors;
 
 import com.application.seatallotment.domain.Employee;
 import com.application.seatallotment.repository.EmployeeRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +45,13 @@ public class StorageService {
 		Pattern pattern = Pattern.compile(",");
         List <Employee> employees = br.lines().skip(1).map(line -> {
 		String[] row = pattern.split(line);
-		String name=(String) row[0];
-		String empId=(String) row[1];
-		String manager= (String) row[2];
-		String email= (String) row[3];
-		String location= (String) (row[4]);
-		String department = (String) (row[5]);
+		//Firstname, lastname
+		String name=(String) row[0] + ',' + (String) row[1];
+		String empId=(String) row[2];
+		String manager= (String) row[3] + ',' + (String) row[4];
+		String email= (String) row[5];
+		String location= (String) (row[6]);
+		String department = (String) (row[7]);
         return new Employee(name, empId, manager , email, location,department);
        }).collect(Collectors.toList());
         ListIterator<Employee> listIterator=employees.listIterator();

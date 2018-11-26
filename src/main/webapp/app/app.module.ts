@@ -20,6 +20,9 @@ import { SeatallocationEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
+import { ImportModule } from './import/import.module';
+import { SearchModule } from './search/search.module';
+import { SeatmapModule } from './seatmap/seatmap.module';
 
 @NgModule({
     imports: [
@@ -30,7 +33,10 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         SeatallocationCoreModule,
         SeatallocationHomeModule,
         SeatallocationAccountModule,
-        SeatallocationEntityModule
+        SeatallocationEntityModule,
+        ImportModule,
+        SearchModule,
+        SeatmapModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
