@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SeatallocationSharedModule } from 'app/shared';
+import { SeatallocationSharedModule } from '../shared';
 import { HOME_ROUTE, HomeComponent } from './';
 
 @NgModule({

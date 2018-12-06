@@ -1,14 +1,5 @@
 {
-  "ExpandedNodes": [
-    "",
-    "\\app",
-    "\\app\\core",
-    "\\app\\core\\auth",
-    "\\app\\entities",
-    "\\app\\entities\\seatalloted",
-    "\\app\\shared",
-    "\\app\\shared\\auth"
-  ],
-  "SelectedNode": "\\app\\entities\\seatalloted\\seatalloted.component.html",
-  "PreviewInSolutionExplorer": false
+    "ExpandedNodes": ["", "\\app", "\\app\\shared", "\\app\\shared\\auth"],
+    "SelectedNode": "\\app\\shared\\shared-common.module.ts",
+    "PreviewInSolutionExplorer": false
 }

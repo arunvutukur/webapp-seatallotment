@@ -18,6 +18,32 @@
                     </span>
                 </a>
             </li>
+            <!---Seat Management menu-->
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                        <span>
+                            <!--fa-icon icon="address-book"></fa-icon>-->
+                            <fa-icon icon="list"></fa-icon>
+                            <!--<i class="fa fa-database" aria-hidden="true"></i>-->
+                            <span>Seat Management</span>
+                        </span>
+                    </a>
+                    <!--SUB Menu for seat management menu-->
+                    <!--ul class="dropdown-menu" ngbDropdownMenu>
+                        <li>
+                            <a class="dropdown-item" routerLink="seatalloted" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                                <span>Seatalloted</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="access" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                                <span>Access</span>
+                            </a>
+                        </li>                       
+                    </ul-->
+                </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
