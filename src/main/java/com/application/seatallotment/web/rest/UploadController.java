@@ -1,11 +1,14 @@
 package com.application.seatallotment.web.rest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.application.seatallotment.service.StorageService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.application.seatallotment.service.ValidationService;
+import com.application.seatallotment.web.rest.errors.DataInconsistencyException;
+import com.application.seatallotment.web.rest.errors.FileNotSupportedException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,25 +22,33 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api")
 public class UploadController {
 
-	private final Logger log = LoggerFactory.getLogger(UploadController.class);
 	@Autowired
 	StorageService storageService;
 
+	@Autowired
+	ValidationService dataService;
 	List<String> files = new ArrayList<String>();
 
 	@PostMapping("/post")
 	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 		String message = "";
-		try {
-			storageService.store(file);
-			files.add(file.getOriginalFilename());
 
+		try {
+			// 1. check type of file : if not xlsx throw exception
+			if (!(file.getOriginalFilename().endsWith(".xlsx"))) {
+				throw new FileNotSupportedException(file.getOriginalFilename()) ;
+			}
+			storageService.store(file);
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
-			log.debug(message);
 			return ResponseEntity.status(HttpStatus.OK).body(message);
-		} catch (Exception e) {
-			message = "FAIL to upload " + file.getOriginalFilename() + "!";
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+		}catch(FileNotSupportedException ex){
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(ex.getMessage());
+		}catch(DataInconsistencyException ex){
+           return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(ex.getMessage());
+		}catch(IOException ex){
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 		}
+		
 	}
+
 }

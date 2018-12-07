@@ -1,20 +1,22 @@
 package com.application.seatallotment.service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import com.application.seatallotment.domain.Employee;
-import com.application.seatallotment.repository.EmployeeRepository;
+import com.application.seatallotment.web.rest.errors.DataInconsistencyException;
+import com.monitorjbl.xlsx.StreamingReader;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -22,48 +24,89 @@ import org.springframework.web.multipart.MultipartFile;
 public class StorageService {
 
 	Logger log = LoggerFactory.getLogger(this.getClass().getName());
-    //private final Path rootLocation = Paths.get("upload-dir");
-	@Autowired
-	private EmployeeRepository employeeRepository;
+	private final Path rootLocation = Paths.get("upload-dir");
+
+	private static String UNISYS_ASSOCIATE_SHEET = "";
+	private static String CONTRACTOR_SHEET = "Contractors";
+	private static String SEATING_SHEET = "Seating";
+	private String EmplId = "";
+	private String Name = "";
+	private String Manager = "";
+	private String Email = "";
+	private String Location = "";
+	private String Department = "";
+	private String SeatNo = "";
+	private String Occupancy_Status = "";
+	private boolean isContractor = false;
+	private String AssignedLocation = "";
+	private String DESKNO = "";
 	
-	public StorageService(EmployeeRepository employeeRepository){
-	   this.employeeRepository=employeeRepository;
+	private String Floor = "";
+	
+	@Autowired
+	private ValidationService dataValidationService;
+	
+	public void store(MultipartFile file) throws DataInconsistencyException,IOException {
+		init();
+	    writedataToMongoDb(file);
+		deleteAll();
+		
 	}
-	public void store(MultipartFile file) {
-		try {
-			//Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
-			writedataToMongoDb(file);
-		} catch (Exception e) {
-			throw new RuntimeException("FAIL!");
-		}
-	}
+
+	
 
 	private void writedataToMongoDb(MultipartFile file) throws IOException {
-		InputStream is = file.getInputStream();
-		log.debug("Got input Stream from uploaded file");
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-		Pattern pattern = Pattern.compile(",");
-        List <Employee> employees = br.lines().skip(1).map(line -> {
-		String[] row = pattern.split(line);
-		//Firstname, lastname
-		String name=(String) row[0] + ',' + (String) row[1];
-		String empId=(String) row[2];
-		String manager= (String) row[3] + ',' + (String) row[4];
-		String email= (String) row[5];
-		String location= (String) (row[6]);
-		String department = (String) (row[7]);
-        return new Employee(name, empId, manager , email, location,department);
-       }).collect(Collectors.toList());
-        ListIterator<Employee> listIterator=employees.listIterator();
-		while(listIterator.hasNext()){
-			if(employeeRepository.existsByempId(listIterator.next().getEmpId()))
-			listIterator.remove();
-			log.debug("Employee in list iterator loop:" );
+		
+		    Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+			InputStream is = file.getInputStream();
+	        Workbook workbook = StreamingReader.builder()
+				          .rowCacheSize(100) // number of rows to keep in memory (defaults to 10)
+				          .bufferSize(4096)  // buffer size to use when reading InputStream to file (defaults to 1024)
+						  .open(is);         // InputStream or File for XLSX file (required)
+							  
+            Sheet UnisysSheet = workbook.getSheet("Unisys Associates");
+			for(Row row: UnisysSheet) {
+				 EmplId = row.getCell(0).getStringCellValue();
+			     Name = row.getCell(1).getStringCellValue();
+				 Manager = row.getCell(2).getStringCellValue();
+				 Email = row.getCell(3).getStringCellValue();
+				 Location = row.getCell(4).getStringCellValue();
+				 Department = row.getCell(5).getStringCellValue();
+				 SeatNo = row.getCell(6).getStringCellValue();
+				 SeatNo = dataValidationService.convertToValidSeatNo(SeatNo);
+				 isContractor = false;
+				//create employee object with contractor= false
+			}
+			Sheet ContractorSheet = workbook.getSheet("Contractors");
+			
+			for(Row row: ContractorSheet) {
+				 EmplId = row.getCell(0).getStringCellValue();
+			     Name = row.getCell(1).getStringCellValue();
+			     Email = row.getCell(2).getStringCellValue();
+				 Department = row.getCell(3).getStringCellValue();
+				 Location = row.getCell(4).getStringCellValue();
+				 isContractor = true;
+				//create  employee object with contractor = true
+			}
+			for(Row row: workbook.getSheet("Seating")) {
+				 Floor = row.getCell(3).getStringCellValue();
+				 DESKNO = row.getCell(4).getStringCellValue();
+				 Occupancy_Status = row.getCell(8).getStringCellValue();
+				//create seat object
+			} 		
+			
+	}
+	
+	private void init() {
+		try {
+			Files.createDirectory(rootLocation);
+		} catch (IOException e) {
+			throw new RuntimeException("Could not initialize storage!");
 		}
-	    employeeRepository.saveAll(employees);
-	   		} catch (Exception ex) {
-           log.debug("exception in storage service :"+ ex.getMessage());
-		}
+	}
 
+	public void deleteAll() {
+		if (rootLocation.toFile().exists())
+			FileSystemUtils.deleteRecursively(rootLocation.toFile());
 	}
 }
