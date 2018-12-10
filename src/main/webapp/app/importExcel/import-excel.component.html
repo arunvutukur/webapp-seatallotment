@@ -1,0 +1,37 @@
+<div class="alert alert-success" *ngIf="success">
+    <strong>File saved!</strong>
+</div>
+
+
+<div class="alert alert-danger alert-dismissible " *ngIf="fileNotExcel">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>File is not of xlsx type!</strong> Please choose another one.
+</div>
+
+<div class="alert alert-danger" *ngIf="sheetNotFound">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Either "Seating" or "Contractors" or "Unisys Associate" Sheet is not found!</strong> Please choose another
+    one.
+</div>
+
+<div class="alert alert-danger" *ngIf="missingSheet">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Missing Sheet!</strong>"Contractors" or "Unisys Associates" or "Seating" Sheet is missing. 
+</div>
+<div class="alert alert-danger" *ngIf="internalServerError">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Internal Server Error!</strong> Please choose another
+    one.
+</div>
+
+<div *ngIf="currentFileUpload" class="progress">
+    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+        aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}" *ngIf="validFile">
+        {{progress.percentage}}%</div>
+</div>
+
+<label class="btn btn-default">
+    <input type="file" (change)="selectFile($event)">
+</label>
+
+<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>

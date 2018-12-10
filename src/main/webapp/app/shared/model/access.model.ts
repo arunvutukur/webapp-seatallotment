@@ -7,5 +7,4 @@ export interface IAccess {
 
 export class Access implements IAccess {
     constructor(public id?: string, public associateId?: string, public role?: string, public password?: string) {}
-      //constructor(public associateId?: string, public role?: string, public password?: string) {}
 }

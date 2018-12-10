@@ -12,4 +12,10 @@ import { SeatallocationSharedLibsModule, SeatallocationSharedCommonModule, JhiLo
     exports: [SeatallocationSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SeatallocationSharedModule {}
+export class SeatallocationSharedModule {
+    static forRoot() {
+        return {
+            ngModule: SeatallocationSharedModule
+        };
+    }
+}

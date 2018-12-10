@@ -11,7 +11,7 @@ import { SeatallotedService } from './seatalloted.service';
     templateUrl: './seatalloted-update.component.html'
 })
 export class SeatallotedUpdateComponent implements OnInit {
-    private _seatalloted: ISeatalloted;
+    seatalloted: ISeatalloted;
     isSaving: boolean;
 
     constructor(private seatallotedService: SeatallotedService, private activatedRoute: ActivatedRoute) {}
@@ -47,12 +47,5 @@ export class SeatallotedUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-    get seatalloted() {
-        return this._seatalloted;
-    }
-
-    set seatalloted(seatalloted: ISeatalloted) {
-        this._seatalloted = seatalloted;
     }
 }

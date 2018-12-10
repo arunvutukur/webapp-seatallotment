@@ -29,7 +29,6 @@ export class RequestComponent implements OnInit {
     }
 
     updateRequested(requestForApproval: boolean) {
-        this.seatallotedService.setNumberOfRequests(this.seatallotedService.getNumberOfRequests() + 1);
         this.seatallotedService.updateRequestForApproval(this.seatalloted, requestForApproval).subscribe(data => {
             this.seatalloted = data as Seatalloted;
         });

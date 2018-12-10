@@ -1,4 +1,4 @@
-package com.mycompany.myapp.web.rest.errors;
+package com.application.seatallotment.web.rest.errors;
 
 public class FileNotSupportedException extends Exception {
 

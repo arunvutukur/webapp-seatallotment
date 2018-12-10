@@ -136,7 +136,6 @@ export class SeatallotedComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(errorMessage, null, null);
     }
     updateRequested(requestForApproval: boolean) {
-        this.seatallotedService.setNumberOfRequests(this.seatallotedService.getNumberOfRequests() + 1);
         this.subscribeToSaveResponse(this.seatallotedService.updateRequestForApproval(this.seatalloted, requestForApproval));
     }
 

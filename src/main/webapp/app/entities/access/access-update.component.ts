@@ -11,7 +11,7 @@ import { AccessService } from './access.service';
     templateUrl: './access-update.component.html'
 })
 export class AccessUpdateComponent implements OnInit {
-    private _access: IAccess;
+    access: IAccess;
     isSaving: boolean;
 
     constructor(private accessService: AccessService, private activatedRoute: ActivatedRoute) {}
@@ -47,12 +47,5 @@ export class AccessUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-    get access() {
-        return this._access;
-    }
-
-    set access(access: IAccess) {
-        this._access = access;
     }
 }

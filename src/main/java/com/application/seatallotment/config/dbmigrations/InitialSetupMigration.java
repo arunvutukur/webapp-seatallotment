@@ -82,7 +82,7 @@ public class InitialSetupMigration {
         userUser.setPassword("$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K");
         userUser.setFirstName("");
         userUser.setLastName("User");
-        userUser.setEmail("arun@localhost");
+        userUser.setEmail("user@localhost");
         userUser.setActivated(true);
         userUser.setLangKey("en");
         userUser.setCreatedBy(systemUser.getLogin());

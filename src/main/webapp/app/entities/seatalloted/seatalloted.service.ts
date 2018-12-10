@@ -11,11 +11,9 @@ type EntityArrayResponseType = HttpResponse<ISeatalloted[]>;
 
 @Injectable({ providedIn: 'root' })
 export class SeatallotedService {
-    private resourceUrl = SERVER_API_URL + 'api/seatalloteds';
-    public NUMBER_OF_REQUESTS: number;
-    constructor(private http: HttpClient) {
-        this.NUMBER_OF_REQUESTS = 0;
-    }
+    public resourceUrl = SERVER_API_URL + 'api/seatalloteds';
+
+    constructor(private http: HttpClient) {}
 
     create(seatalloted: ISeatalloted): Observable<EntityResponseType> {
         return this.http.post<ISeatalloted>(this.resourceUrl, seatalloted, { observe: 'response' });
@@ -39,12 +37,5 @@ export class SeatallotedService {
 
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
-    setNumberOfRequests(NUMBER_OF_REQUESTS) {
-        this.NUMBER_OF_REQUESTS = NUMBER_OF_REQUESTS;
-    }
-
-    getNumberOfRequests() {
-        return this.NUMBER_OF_REQUESTS;
     }
 }

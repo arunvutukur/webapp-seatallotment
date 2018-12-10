@@ -3,13 +3,15 @@
     <router-outlet name="navbar"></router-outlet>
 </div>
 <div class="container-fluid">
-	<div class="col-md-3">
-        <span class="hipster192 img-fluid rounded"></span>
-    </div>
+    
     <div class="card jh-card">
- 		<span class="hipster192 img-fluid rounded"></span>   
-        <router-outlet></router-outlet>
-        <router-outlet name="popup"></router-outlet>
+        
+<div class="row">
+
+    <div class="col-md-8"><router-outlet></router-outlet></div>
+    <router-outlet name="popup"></router-outlet>
+    <div class="col-md-4"><router-outlet name="import"></router-outlet></div>
+</div>
     </div>
     <jhi-footer></jhi-footer>
 </div>

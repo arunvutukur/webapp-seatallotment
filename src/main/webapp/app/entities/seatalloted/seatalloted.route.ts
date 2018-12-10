@@ -3,8 +3,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Seatalloted } from 'app/shared/model/seatalloted.model';
 import { SeatallotedService } from './seatalloted.service';
 import { SeatallotedComponent } from './seatalloted.component';
@@ -18,10 +18,13 @@ import { RequestComponent } from './request';
 export class SeatallotedResolve implements Resolve<ISeatalloted> {
     constructor(private service: SeatallotedService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Seatalloted> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((seatalloted: HttpResponse<Seatalloted>) => seatalloted.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Seatalloted>) => response.ok),
+                map((seatalloted: HttpResponse<Seatalloted>) => seatalloted.body)
+            );
         }
         return of(new Seatalloted());
     }

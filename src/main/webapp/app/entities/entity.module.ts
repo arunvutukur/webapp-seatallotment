@@ -4,7 +4,6 @@ import { SeatallocationSeatallotedModule } from './seatalloted/seatalloted.modul
 import { SeatallocationAccessModule } from './access/access.module';
 import { SeatallocationEmployeeModule } from './employee/employee.module';
 import { SeatallotedService } from './seatalloted';
-import { UploadFileService } from './upload-file.service';
 
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
@@ -18,7 +17,7 @@ import { UploadFileService } from './upload-file.service';
     ],
     declarations: [],
     entryComponents: [],
-    providers: [SeatallotedService, UploadFileService],
+    providers: [SeatallotedService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SeatallocationEntityModule {}

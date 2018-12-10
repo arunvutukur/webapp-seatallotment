@@ -12,7 +12,6 @@ import { EmployeeDetailComponent } from './employee-detail.component';
 import { EmployeeUpdateComponent } from './employee-update.component';
 import { EmployeeDeletePopupComponent } from './employee-delete-dialog.component';
 import { IEmployee } from 'app/shared/model/employee.model';
-import { FormUploadComponent } from '../form-upload/form-upload.component';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeResolve implements Resolve<IEmployee> {
@@ -76,10 +75,6 @@ export const employeeRoute: Routes = [
             pageTitle: 'Employees'
         },
         canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'employee/upload',
-        component: FormUploadComponent
     }
 ];
 

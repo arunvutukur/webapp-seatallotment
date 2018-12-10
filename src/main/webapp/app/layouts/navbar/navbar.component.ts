@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit {
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
-        this.numberOfRequests = seatallotedservice.getNumberOfRequests();
         console.log('number of requests in navbar component' + this.numberOfRequests);
     }
 
